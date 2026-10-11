@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Sebo · Minecraft Thumbnail Designer</title>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,800;0,900;1,900&display=swap" rel="stylesheet">
 <script>(()=>{try{const t=localStorage.getItem("sebo-theme");if(t==="light")document.documentElement.dataset.theme="light";}catch(e){}document.documentElement.classList.add("page-loading");})();</script>
@@ -522,6 +522,174 @@ header nav a:hover::after {
 }
 </style>
 
+
+<style id="visible-tab-curve-start">
+.hero-curve path { animation-play-state: paused !important; }
+.hero-curve path.curve-started {
+  animation: drawCurve 1.05s cubic-bezier(.65,0,.35,1) 0ms forwards !important;
+}
+</style>
+
+
+<style id="medium-three-column-grid">
+@media (min-width: 901px) {
+  #work .wrap { max-width: 1240px !important; }
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 22px !important;
+  }
+}
+</style>
+
+
+<style id="hero-elements-downsize">
+@media (min-width: 901px) {
+  .hero h1 { font-size: clamp(64px, 9.5vw, 148px) !important; }
+  .num { height: clamp(42px, 6vw, 82px) !important; }
+  .num b { font-size: clamp(42px, 6vw, 82px) !important; }
+  .hero p { font-size: 17px !important; margin-top: 24px !important; }
+  .tool { width: 52px !important; height: 52px !important; }
+  .tools .row { gap: 20px !important; }
+}
+</style>
+
+
+<style id="slower-sebo-curve">
+.hero-curve path.curve-started {
+  animation-duration: 1.35s !important;
+}
+</style>
+
+
+<style id="thumbnail-grid-slightly-larger">
+@media (min-width: 901px) {
+  #work .wrap { max-width: 1300px !important; }
+  .grid { gap: 24px !important; }
+}
+</style>
+
+
+<style id="thumbnail-hover-title-slightly-smaller">
+.thumb .overlay .title,
+.thumb .overlay .thumb-title,
+.thumb .thumb-overlay .title,
+.thumb .thumb-overlay .thumb-title {
+  font-size: 14px !important;
+  line-height: 1.2 !important;
+}
+</style>
+
+
+<style id="fix-app-dividers-grid-and-hover-title">
+/* Keep app-logo dividers cleanly centered in the gap, without overlapping icons. */
+.tool:not(:last-child)::after {
+  right: -15px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  height: 22px !important;
+  width: 1px !important;
+  opacity: .5 !important;
+  pointer-events: none !important;
+}
+.tool:hover::after {
+  opacity: .5 !important;
+}
+
+/* Make the full desktop thumbnail grid a little wider, retaining 3 columns. */
+@media (min-width: 901px) {
+  #work .wrap { max-width: 1360px !important; }
+  #work .grid { gap: 24px !important; }
+}
+
+/* The real hover title uses .cap-title, so target that element directly. */
+.thumb .cap-title {
+  font-size: 14px !important;
+  line-height: 1.15 !important;
+}
+</style>
+
+
+<style id="center-app-dividers-exactly">
+/* Center each separator within the flex gap between neighboring app icons. */
+.tools .row { column-gap: 30px !important; }
+.tool:not(:last-child)::after {
+  right: -15px !important;
+  top: 50% !important;
+  transform: translate(50%, -50%) !important;
+}
+</style>
+
+<style id="responsive-final">
+/* ===== Responsive final layer: desktop look unchanged, fixes for laptops / tablets / phones ===== */
+
+/* 1. Top bar: centred with left/right auto (the entry animation owns `transform`, which used to
+      cancel translateX(-50%) and pushed the bar off-centre / off-screen on every device) */
+header{left:0 !important;right:0 !important;margin-left:auto !important;margin-right:auto !important;transform:none;max-width:660px;padding-top:max(8px,env(safe-area-inset-top)) }
+header{top:8px;padding-top:8px}
+@supports (top:max(1px,env(safe-area-inset-top))){header{top:max(8px,env(safe-area-inset-top))}}
+
+/* 2. Page can never scroll sideways, without turning <body> into a scroll container */
+html{overflow-x:hidden}
+body{overflow-x:clip !important}
+a,button{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+
+/* 3. Tablets and small laptops (<= 900px): keep the nav, fix the stacked hero */
+@media (max-width:900px){
+  .hero-top{align-items:center}
+  .stat{flex:0 0 auto !important;width:min(350px,100%) !important}
+  .hero-name{max-width:100%}
+}
+@media (min-width:521px) and (max-width:900px){
+  nav{display:flex !important;gap:clamp(16px,3.4vw,28px)}
+  header{grid-template-columns:1fr auto 1fr !important}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:20px !important}
+  #work .wrap{padding-left:20px !important;padding-right:20px !important}
+  .cap-title{font-size:14px !important}
+  .cap-channel{font-size:11px !important}
+}
+@media (max-width:520px){
+  .grid{grid-template-columns:minmax(0,1fr) !important}
+}
+
+/* 4. Small phones: nothing may be wider than the screen */
+@media (max-width:380px){
+  header{width:calc(100% - 12px) !important}
+  .hero h1{font-size:clamp(56px,20vw,80px) !important}
+}
+.hero-name,.hero-top,.stat,.tools,.clients,.grid,footer .wrap{min-width:0}
+.lbl{white-space:nowrap}
+footer{padding-bottom:max(28px,env(safe-area-inset-bottom))}
+
+/* 5. Landscape phones: keep the bar clear of the hero text */
+@media (max-height:600px) and (orientation:landscape){
+  .hero{padding-top:84px !important}
+  .hero-top{align-items:center}
+  .stat{flex:0 1 240px !important;width:auto !important;min-width:150px}
+  .hero h1{font-size:clamp(52px,11vw,110px) !important}
+}
+
+/* 6. Big monitors (2K / 4K at 100%): scale the layout up instead of leaving it tiny in the middle */
+@media (min-width:2200px){
+  .wrap{max-width:1360px}
+  #work .wrap{max-width:1700px !important}
+  .hero h1{font-size:clamp(148px,7vw,230px) !important}
+  .num,.num b{height:clamp(82px,4vw,118px) !important}
+  .num b{font-size:clamp(82px,4vw,118px) !important}
+  .stat{flex-basis:clamp(350px,16vw,460px) !important;width:clamp(350px,16vw,460px) !important}
+  .hero p{font-size:20px !important}
+  .tool{width:64px !important;height:64px !important}
+  .tools .row{column-gap:40px !important}
+  .tool:not(:last-child)::after{right:-20px !important}
+  section h2{font-size:clamp(40px,2.2vw,56px)}
+}
+
+/* 7. Lightbox: stay inside the visible screen on every device */
+#lb{overscroll-behavior:contain}
+#lb img{max-height:min(78vh,calc(100dvh - 190px))}
+@media (min-width:761px) and (max-width:1100px){
+  #lb .lb-content{max-width:min(78vw,1160px)}
+}
+</style>
 </head>
 <body>
 
@@ -586,12 +754,13 @@ const SITE = {
   thumbnails: [
     { img: "thumbs/thumbnail1", title: "Thumbnail 1", client: "", views: 0, practice: true },
     { img: "thumbs/thumbnail2", title: "Thumbnail 2", client: "", views: 0, practice: true },
-    { img: "thumbs/thumbnail3", title: "Přežil jsem 24 HODIN na 1 Blocku v Minecraftu", client: "", youtubeUrl: "https://youtu.be/DrHjbr9X3d4" },
-    { img: "thumbs/thumbnail4", title: "They Said Don’t Enter the Lab… I Did Anyway – Minecraft Horror Biohazard: Project Genesis", client: "", youtubeUrl: "https://youtu.be/IsmK6mPbakI" },
-    { img: "thumbs/thumbnail5", title: "Porazil jsem 6 NEJSILNĚJŠÍCH Bossů v Minecraftu", client: "", youtubeUrl: "https://youtu.be/PTE8qgK_0m8" },
-    { img: "thumbs/thumbnail6", title: "100 Players Simulate Minecraft's One Block Hunger Games!", client: "", youtubeUrl: "https://youtu.be/p14yrmxOvGw" },
-    { img: "thumbs/thumbnail7", title: "Ai Hunts 100 Players in the Hunger Games!", client: "", youtubeUrl: "https://youtu.be/PWbDH81h7Sw" },
-    { img: "thumbs/thumbnail8", title: "Thumbnail 8", client: "", views: 0, practice: true }
+    { img: "thumbs/thumbnail3", title: "Thumbnail 3", client: "", views: 0, practice: true },
+    { img: "thumbs/thumbnail4", title: "Přežil jsem 24 HODIN na 1 Blocku v Minecraftu", client: "", youtubeUrl: "https://youtu.be/DrHjbr9X3d4" },
+    { img: "thumbs/thumbnail5", title: "100 Players Simulate Minecraft's Skyblock!", client: "", youtubeUrl: "https://youtu.be/p14yrmxOvGw" },
+    { img: "thumbs/thumbnail6", title: "Ai Hunts 100 Players in the Hunger Games!", client: "Neo's Mind", youtubeUrl: "https://youtu.be/PWbDH81h7Sw" },
+    { img: "thumbs/thumbnail7", title: "Porazil jsem 6 NEJSILNĚJŠÍCH Bossů v Minecraftu", client: "SirYakari", youtubeUrl: "https://youtu.be/PTE8qgK_0m8" },
+    { img: "thumbs/thumbnail8", title: "Thumbnail 8", client: "", views: 0, practice: true },
+    { img: "thumbs/thumbnail9", title: "They Said Don’t Enter the Lab… I Did Anyway – Minecraft Horror Biohazard: Project Genesis", client: "WOLF", youtubeUrl: "https://youtu.be/IsmK6mPbakI" }
   ],
 
   // PEOPLE YOU'VE WORKED FOR: handle = their YouTube @handle (used for live subs + profile picture).
@@ -938,6 +1107,59 @@ document.addEventListener('click', function (e) {
 }, true);
 </script>
 
+
+<script id="visible-tab-curve-script">
+(() => {
+  const startCurveWhenVisible = () => {
+    if (document.visibilityState !== "visible") return;
+    const path = document.querySelector(".hero-curve path");
+    if (!path || path.classList.contains("curve-started")) return;
+    path.classList.add("curve-started");
+    document.removeEventListener("visibilitychange", startCurveWhenVisible);
+    window.removeEventListener("focus", startCurveWhenVisible);
+  };
+  document.addEventListener("visibilitychange", startCurveWhenVisible);
+  window.addEventListener("focus", startCurveWhenVisible);
+  if (document.visibilityState === "visible") startCurveWhenVisible();
+})();
+</script>
+
+<script id="responsive-final-js">
+/* Safety: the page can never stay hidden if something above fails */
+setTimeout(function(){document.documentElement.classList.remove("page-loading")},2500);
+(function(){
+  var lb=document.getElementById("lb"), root=document.documentElement;
+  if(!lb) return;
+  /* lock page scroll behind the lightbox without changing the layout */
+  lb.addEventListener("touchmove",function(e){e.preventDefault()},{passive:false});
+  lb.addEventListener("wheel",function(e){e.preventDefault()},{passive:false});
+  /* swipe left / right to change thumbnail on touch screens */
+  var x0=null,y0=0;
+  lb.addEventListener("touchstart",function(e){var t=e.changedTouches[0];x0=t.clientX;y0=t.clientY},{passive:true});
+  lb.addEventListener("touchend",function(e){
+    if(x0===null) return; var t=e.changedTouches[0], dx=t.clientX-x0, dy=t.clientY-y0; x0=null;
+    if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5){var b=lb.querySelector(dx<0?".next":".prev"); if(b) b.click();}
+  },{passive:true});
+})();
+/* The underline curve used to keep its old (wider) width when the window shrank or the page was
+   zoomed in, which kept the "Sebo" block too wide and pushed the layout. Re-measure from scratch. */
+(function(){
+  var h1=document.getElementById("headline"), curve=document.querySelector(".hero-curve"), raf=0;
+  if(!h1||!curve) return;
+  function fit(){
+    curve.style.width="0px";
+    var w=Math.ceil(h1.getBoundingClientRect().width);
+    curve.style.width=w+"px";
+  }
+  function queue(){cancelAnimationFrame(raf);raf=requestAnimationFrame(fit)}
+  addEventListener("resize",queue,{passive:true});
+  addEventListener("orientationchange",queue);
+  if(window.visualViewport) visualViewport.addEventListener("resize",queue);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(queue);
+  addEventListener("load",queue);
+  queue();
+})();
+</script>
 </body>
 </html>
 
